@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          repository: eseifert/postproject-python-host-spike
+          repository: eseifert/postproject-python-host
       - uses: actions/checkout@v7
         with:
           repository: eseifert/postproject
