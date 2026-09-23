@@ -1,4 +1,4 @@
-"""Disposable Python host experiment for PostProject's installed ABI package."""
+"""Python host validation for PostProject's installed ABI package."""
 
 import argparse
 import json
@@ -9,9 +9,9 @@ from postproject import Production
 
 def exercise(production_path: Path, media_path: Path, library_path: Path) -> dict:
     with Production.create(
-        production_path, "Python host spike", library_path=library_path
+        production_path, "Python host validation", library_path=library_path
     ) as production:
-        with production.transaction(origin="org.postproject.spike.python") as transaction:
+        with production.transaction(origin="org.postproject.validation.python") as transaction:
             asset_id = transaction.import_media(media_path, "Host clip")
         representation = production.representations[asset_id][0]
         reference = production.host_bindings[representation.id]
@@ -35,4 +35,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
