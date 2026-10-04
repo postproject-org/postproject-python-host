@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from postproject import Production
+from postproject import RepresentationRef, Production
 
 
 def exercise(production_path: Path, media_path: Path, library_path: Path) -> dict:
@@ -14,7 +14,7 @@ def exercise(production_path: Path, media_path: Path, library_path: Path) -> dic
         with production.transaction(origin="org.postproject.validation.python") as transaction:
             asset_id = transaction.import_media(media_path, "Host clip")
         representation = production.representations[asset_id][0]
-        reference = production.host_bindings[representation.id]
+        reference = production.host_bindings[RepresentationRef(representation.id)]
         resolution = production.resolve(asset_id)[0]
         return {
             "asset_id": str(asset_id),
