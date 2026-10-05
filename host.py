@@ -13,6 +13,7 @@ def exercise(production_path: Path, media_path: Path, library_path: Path) -> dic
     ) as production:
         with production.transaction(origin="org.postproject.validation.python") as transaction:
             asset_id = transaction.import_media(media_path, "Host clip")
+            transaction.commit()
         representation = production.representations[asset_id][0]
         reference = production.host_bindings[RepresentationRef(representation.id)]
         resolution = production.resolve(asset_id)[0]
