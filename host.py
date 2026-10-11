@@ -11,7 +11,7 @@ def exercise(production_path: Path, media_path: Path, library_path: Path) -> dic
     with Production.create(
         production_path, "Python host validation", library_path=library_path
     ) as production:
-        with production.transaction(origin="org.postproject.validation.python") as transaction:
+        with production.edit(origin="org.postproject.validation.python") as transaction:
             asset_id = transaction.import_media(media_path, "Host clip")
             transaction.commit()
         representation = production.representations[asset_id][0]
