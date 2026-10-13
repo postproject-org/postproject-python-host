@@ -12,10 +12,10 @@ def exercise(production_path: Path, media_path: Path, library_path: Path) -> dic
         production_path, "Python host validation", library_path=library_path
     ) as production:
         with production.edit(origin="org.postproject.validation.python") as transaction:
-            asset_id = transaction.import_media(media_path, "Host clip")
+            imported = transaction.import_media(media_path, "Host clip")
+            asset_id = imported.asset_id
             transaction.commit()
-        representation = production.representations[asset_id][0]
-        reference = production.host_bindings[RepresentationRef(representation.id)]
+        reference = production.host_bindings[RepresentationRef(imported.representation_id)]
         resolution = production.resolve(asset_id)[0]
         return {
             "asset_id": str(asset_id),
